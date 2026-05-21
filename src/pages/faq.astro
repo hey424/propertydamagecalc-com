@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const title = 'FAQ | propertydamagecalc.com';
+const description = 'Frequently asked questions about property damage claims: RCV vs. ACV, depreciation, total loss, and diminished value.';
+---
+<BaseLayout title={title} description={description}>
+  <h1>Frequently Asked Questions</h1>
+  <h2>When is a vehicle a total loss?</h2>
+  <p>When repair costs exceed the vehicle&rsquo;s ACV (or in many states, a set threshold like 75–80% of ACV). The insurer pays the ACV minus your deductible (for first-party claims) or the full ACV (for third-party claims against the at-fault driver).</p>
+  <h2>What is depreciation and how is it calculated?</h2>
+  <p>Depreciation reflects wear, obsolescence, and age that reduce the value of property below its replacement cost. Insurers calculate ACV as replacement cost minus accumulated depreciation. Depreciation rates vary by property type: vehicles depreciate ~15–20% per year; electronics 20–30%; building contents 10–15%. Insurers use their own depreciation schedules.</p>
+  <h2>Can I dispute an insurer&rsquo;s depreciation calculation?</h2>
+  <p>Yes. Request the insurer&rsquo;s depreciation worksheet. If the rate seems excessive, provide evidence of the property&rsquo;s actual condition and market value. Consider a public adjuster (for large property claims) or an independent appraiser. For auto total losses, check similar vehicles on Craigslist and Autotrader to document market value.</p>
+  <h2>What is a diminished value claim?</h2>
+  <p>After a vehicle is repaired, it&rsquo;s worth less than an identical vehicle with no accident history. You can claim this diminished value from the at-fault driver&rsquo;s insurer (third-party claim). Most first-party (your own insurer) policies exclude diminished value. 17c is the most commonly used formula: 10% × ACV × damage multiplier × mileage multiplier.</p>
+  <h2>Does homeowners insurance cover all property damage?</h2>
+  <p>Homeowners insurance covers many perils (fire, wind, theft, vandalism) but excludes flood, earthquake (usually), and normal wear and tear. Read your declarations page carefully. Separate flood insurance (NFIP or private) is required for flood coverage.</p>
+</BaseLayout>
