@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const title = 'Property Damage Calculator | propertydamagecalc.com';
+const description = 'Estimate the value of your property damage claim: replacement cost vs. actual cash value, diminished value, and additional damages. Free, informational.';
+---
+<BaseLayout title={title} description={description}>
+  <h1>Property Damage Calculator</h1>
+  <p><em>Reviewed by Aspen Lockwood (AL), Editor-in-Chief. Updated May 2026.</em></p>
+  <p>Property damage claims arise from vehicle accidents, natural disasters, theft, vandalism, negligence, and intentional misconduct. The key question in most claims is whether the policy or defendant pays replacement cost value (RCV — what it costs to replace the property today) or actual cash value (ACV — replacement cost minus depreciation). This calculator estimates your potential recovery.</p>
+  <h2>Run the estimate</h2>
+  <form id="calc" novalidate>
+    <label for="property-type">Property type</label>
+    <select id="property-type">
+      <option value="vehicle">Vehicle</option>
+      <option value="real-property">Real property (home / building)</option>
+      <option value="personal-property">Personal property (electronics, furniture, jewelry)</option>
+      <option value="business-property">Business property / equipment</option>
+    </select>
+    <label for="replacement-cost">Replacement cost (USD — current cost to buy new equivalent)</label>
+    <input id="replacement-cost" type="number" value="30000" min="0" />
+    <label for="age-years">Age of property (years)</label>
+    <input id="age-years" type="number" value="3" min="0" max="50" />
+    <label for="damage-pct">Percentage of property damaged</label>
+    <input id="damage-pct" type="number" value="60" min="0" max="100" />
+    <label for="valuation">Valuation method (from your policy or claim type)</label>
+    <select id="valuation">
+      <option value="rcv">Replacement cost value (RCV) — most homeowner policies with RCV endorsement</option>
+      <option value="acv">Actual cash value (ACV) — standard auto, older policies, liability claims</option>
+    </select>
+    <label for="diminished-value">Vehicle with diminished value claim? (applies to vehicles only)</label>
+    <select id="diminished-value">
+      <option value="no">Not applicable</option>
+      <option value="yes">Yes — vehicle repaired but worth less due to accident history</option>
+    </select>
+    <button type="submit">Estimate claim value</button>
+  </form>
+  <p id="result" aria-live="polite"></p>
+  <h2>RCV vs. ACV: the key distinction</h2>
+  <p>Replacement cost value pays what it costs to replace the property with a new equivalent. Actual cash value deducts depreciation — you get what the property was worth before the damage, not what it costs to replace it. For a 5-year-old TV worth $600 new, ACV might be $200 after depreciation. Most homeowners policies offer RCV endorsements; standard auto policies typically pay ACV for total losses.</p>
+  <h2>Where to learn more</h2>
+  <p>See <a href="/guides/how-property-damage-claims-work">how property damage claims work</a>, <a href="/guides/rcv-vs-acv">RCV vs. ACV explained</a>, <a href="/guides/diminished-value-claims">diminished value claims</a>, and <a href="/guides/property-damage-misconceptions">common misconceptions</a>.</p>
+  <script>
+    document.getElementById('calc').addEventListener('submit', e => {
+      e.preventDefault();
+      const ptype = document.getElementById('property-type').value;
+      const rc = parseFloat(document.getElementById('replacement-cost').value)||0;
+      const age = parseFloat(document.getElementById('age-years').value)||0;
+      const damagePct = parseFloat(document.getElementById('damage-pct').value)||100;
+      const valuation = document.getElementById('valuation').value;
+      const dv = document.getElementById('diminished-value').value==='yes';
+      // Depreciation rates by property type (annual)
+      const deprRates = {vehicle:0.15,realProperty:0.01,'personalProperty':0.12,'businessProperty':0.10};
+      const deprRate = deprRates[ptype]||0.10;
+      const acv = rc * Math.max(0.1, 1 - (deprRate * age));
+      const damagedRcv = rc * (damagePct/100);
+      const damagedAcv = acv * (damagePct/100);
+      const base = valuation==='rcv' ? damagedRcv : damagedAcv;
+      // Diminished value: typically 10-17% of pre-damage ACV for vehicles
+      const dvAmount = (ptype==='vehicle' && dv) ? acv * 0.13 : 0;
+      const total = base + dvAmount;
+      const fmt = n=>'$'+Math.round(n).toLocaleString();
+      document.getElementById('result').innerHTML =
+        `<strong>Estimated claim value: ${fmt(total*0.85)} &ndash; ${fmt(total*1.15)}</strong><br>Pre-damage ACV: ${fmt(acv)} &bull; ${valuation.toUpperCase()} damage claim: ${fmt(base)}${dvAmount>0 ? ` &bull; Diminished value: ${fmt(dvAmount)}`:''}<br><em>Your deductible reduces the insurer&rsquo;s payment. Third-party claims (against the at-fault party) have no deductible.</em>`;
+    });
+  </script>
+</BaseLayout>
