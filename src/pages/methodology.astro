@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const title = 'Methodology | propertydamagecalc.com';
+const description = 'How the property damage calculator estimates claim value: depreciation rates, RCV vs. ACV, and diminished value.';
+---
+<BaseLayout title={title} description={description}>
+  <h1>Methodology</h1>
+  <p><em>Reviewed by Aspen Lockwood (AL), Editor-in-Chief. Updated May 2026.</em></p>
+  <h2>Depreciation rates</h2><p>Vehicle: 15%/year. Real property (structure): 1%/year. Personal property: 12%/year. Business equipment: 10%/year. ACV = replacement cost × max(0.10, 1 − rate × years). The 10% floor prevents ACV from going to zero on very old items.</p>
+  <h2>Damage percentage</h2><p>User-entered estimate of what portion of the property was damaged. Applied to RCV or ACV to estimate the damaged portion&rsquo;s value.</p>
+  <h2>Diminished value</h2><p>Estimated at 13% of pre-damage ACV for vehicle claims, representing the midpoint of the 17c formula across typical damage scenarios. Actual DV depends on the vehicle&rsquo;s make/model, damage severity, and local market.</p>
+</BaseLayout>
