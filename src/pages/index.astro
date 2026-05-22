@@ -1,13 +1,14 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 const title = 'Property Damage Calculator | propertydamagecalc.com';
-const description = 'Estimate the value of your property damage claim: replacement cost vs. actual cash value, diminished value, and additional damages. Free, informational.';
+const description = 'Estimate the value of your property damage claim: replacement cost vs. actual cash value, depreciation by property type, diminished value for vehicles. Free, informational.';
 ---
 <BaseLayout title={title} description={description}>
   <h1>Property Damage Calculator</h1>
-  <p><em>Reviewed by Aspen Lockwood (AL), Editor-in-Chief. Updated May 2026.</em></p>
-  <p>Property damage claims arise from vehicle accidents, natural disasters, theft, vandalism, negligence, and intentional misconduct. The key question in most claims is whether the policy or defendant pays replacement cost value (RCV — what it costs to replace the property today) or actual cash value (ACV — replacement cost minus depreciation). This calculator estimates your potential recovery.</p>
-  <h2>Run the estimate</h2>
+  <p><em>Reviewed by Wyatt Crane (WC), Editor-in-Chief &mdash; Property Damage &amp; Insurance Claims Practice. Updated May 2026.</em></p>
+  <p>Property damage claims arise from vehicle accidents, natural disasters, theft, vandalism, negligence, and intentional misconduct. The key question in most claims is whether the policy or defendant pays replacement cost value (RCV &mdash; what it costs to replace the property today) or actual cash value (ACV &mdash; replacement cost minus depreciation). For vehicles, a separate diminished value claim may also be available from the at-fault driver's insurer after repairs. This calculator estimates your potential recovery based on these frameworks.</p>
+
+  <h2>Run the Estimate</h2>
   <form id="calc" novalidate>
     <label for="property-type">Property type</label>
     <select id="property-type">
@@ -35,10 +36,31 @@ const description = 'Estimate the value of your property damage claim: replaceme
     <button type="submit">Estimate claim value</button>
   </form>
   <p id="result" aria-live="polite"></p>
-  <h2>RCV vs. ACV: the key distinction</h2>
-  <p>Replacement cost value pays what it costs to replace the property with a new equivalent. Actual cash value deducts depreciation — you get what the property was worth before the damage, not what it costs to replace it. For a 5-year-old TV worth $600 new, ACV might be $200 after depreciation. Most homeowners policies offer RCV endorsements; standard auto policies typically pay ACV for total losses.</p>
-  <h2>Where to learn more</h2>
-  <p>See <a href="/guides/how-property-damage-claims-work">how property damage claims work</a>, <a href="/guides/rcv-vs-acv">RCV vs. ACV explained</a>, <a href="/guides/diminished-value-claims">diminished value claims</a>, and <a href="/guides/property-damage-misconceptions">common misconceptions</a>.</p>
+
+  <h2>How Property Damage Claims Are Valued</h2>
+  <p>Property damage claim valuation hinges on two fundamental questions: what standard applies (RCV or ACV), and how does the insurer or at-fault party calculate depreciation. Understanding these concepts before you file a claim — or before you accept a settlement — is the most practical thing you can do to protect your recovery.</p>
+
+  <h3>RCV vs. ACV: The Core Distinction</h3>
+  <p>Replacement cost value pays what it costs to replace the damaged property with a new equivalent at current prices, without any deduction for the property's age or condition. Actual cash value deducts accumulated depreciation — you receive the property's fair market value before the damage, not what it costs to replace it. The gap between these figures grows dramatically with property age. For a 5-year-old vehicle with a $30,000 replacement cost, ACV after 15% annual depreciation is approximately $22,500. For a 15-year-old HVAC system with a $8,000 replacement cost, ACV at 10% annual depreciation might be under $1,000 — a fraction of what it actually costs to replace.</p>
+  <p>Whether your homeowners or commercial policy pays RCV or ACV is specified in your declarations page. Most policies default to ACV for contents and require a separate RCV endorsement. For auto total losses, nearly all policies pay ACV regardless of endorsements. Review your declarations page carefully before assuming RCV applies to your claim.</p>
+
+  <h3>Depreciation and How to Challenge It</h3>
+  <p>Insurance adjusters apply depreciation schedules that vary by carrier, property type, and individual item. These schedules are not always disclosed proactively. If you believe the insurer's depreciation calculation understates your claim, request the itemized depreciation worksheet. Compare the rates applied to your property against independent market data: comparable vehicle listings, contractor replacement estimates, and published property value databases. Most property insurance policies include an appraisal clause that allows either party to invoke a neutral valuation process when the parties disagree on the amount of loss.</p>
+
+  <h3>Diminished Value</h3>
+  <p>A repaired vehicle is worth less on the market than an identical vehicle with a clean history. This diminished value (DV) is recoverable from the at-fault driver's insurer in most states, regardless of how well the repair was performed. Insurers routinely deny or underpay DV claims on first submission. The widely-used 17c formula — 10% of ACV times a damage multiplier and a mileage multiplier — provides a baseline, but independent certified appraisals typically produce higher estimates and are more persuasive in disputes.</p>
+
+  <h2>Learn More</h2>
+  <ul>
+    <li><a href="/guides/how-property-damage-claims-work">How property damage claims work</a></li>
+    <li><a href="/guides/rcv-vs-acv">RCV vs. ACV explained</a></li>
+    <li><a href="/guides/diminished-value-claims">Diminished value claims</a></li>
+    <li><a href="/guides/property-damage-misconceptions">Common misconceptions</a></li>
+    <li><a href="/case-types">Types of property damage claims</a></li>
+    <li><a href="/methodology">Calculator methodology</a></li>
+    <li><a href="/faq">Frequently asked questions</a></li>
+  </ul>
+
   <script>
     document.getElementById('calc').addEventListener('submit', e => {
       e.preventDefault();

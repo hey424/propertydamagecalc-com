@@ -1,12 +1,49 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 const title = 'Methodology | propertydamagecalc.com';
-const description = 'How the property damage calculator estimates claim value: depreciation rates, RCV vs. ACV, and diminished value.';
+const description = 'How the property damage calculator estimates claim value: depreciation rates by property type, RCV vs. ACV formula, diminished value calculation, and known limitations.';
 ---
 <BaseLayout title={title} description={description}>
-  <h1>Methodology</h1>
-  <p><em>Reviewed by Aspen Lockwood (AL), Editor-in-Chief. Updated May 2026.</em></p>
-  <h2>Depreciation rates</h2><p>Vehicle: 15%/year. Real property (structure): 1%/year. Personal property: 12%/year. Business equipment: 10%/year. ACV = replacement cost × max(0.10, 1 − rate × years). The 10% floor prevents ACV from going to zero on very old items.</p>
-  <h2>Damage percentage</h2><p>User-entered estimate of what portion of the property was damaged. Applied to RCV or ACV to estimate the damaged portion&rsquo;s value.</p>
-  <h2>Diminished value</h2><p>Estimated at 13% of pre-damage ACV for vehicle claims, representing the midpoint of the 17c formula across typical damage scenarios. Actual DV depends on the vehicle&rsquo;s make/model, damage severity, and local market.</p>
+  <h1>Calculator Methodology</h1>
+  <p><em>Reviewed by Wyatt Crane (WC), Editor-in-Chief &mdash; Property Damage &amp; Insurance Claims Practice. Updated May 2026.</em></p>
+
+  <p>This page documents every formula, assumption, and depreciation rate used in the property damage calculator. Understanding the methodology helps you calibrate the estimate against your actual claim and identify where your specific facts differ from the calculator's assumptions.</p>
+
+  <h2>Step 1: Actual Cash Value (ACV) Calculation</h2>
+  <p>For claims valued on an ACV basis, the calculator estimates pre-damage ACV using an annual straight-line depreciation model:</p>
+  <p><strong>ACV = Replacement Cost &times; max(0.10, 1 &minus; Depreciation Rate &times; Age in Years)</strong></p>
+  <p>The 10% floor (max function) prevents ACV from reaching zero on very old items, reflecting the reality that functional property retains some value regardless of age. Depreciation rates by property type:</p>
+  <ul>
+    <li><strong>Vehicles:</strong> 15% per year. A 5-year-old vehicle with a $30,000 replacement cost has an ACV of approximately $22,500 (75% of replacement cost) before applying the damage percentage.</li>
+    <li><strong>Real property (structures):</strong> 1% per year. Structural components depreciate slowly; a 20-year-old home structure retains approximately 80% of its replacement cost value under this model. Note that real property claims are highly site-specific — actual depreciation depends on maintenance history, local construction costs, and the specific components damaged.</li>
+    <li><strong>Personal property (electronics, furniture, appliances):</strong> 12% per year. Electronics and consumer goods depreciate rapidly; a 5-year-old laptop may have an ACV of 40% of its replacement cost.</li>
+    <li><strong>Business property and equipment:</strong> 10% per year. Commercial equipment occupies a middle ground; a 5-year-old commercial appliance retains approximately 50% of its replacement cost value under this model.</li>
+  </ul>
+  <p>These are calculator defaults. Actual insurance depreciation schedules vary by carrier and policy, and insurers frequently use their own property-specific tables that differ from these rates. The depreciation worksheet the adjuster produces is the authoritative source for your claim.</p>
+
+  <h2>Step 2: Applying the Damage Percentage</h2>
+  <p>The user-entered damage percentage represents what fraction of the property was damaged or destroyed. For a total loss (complete destruction), the damage percentage is 100%. For a partial loss — a damaged rear quarter panel, a roof section, a flooded ground floor — the user should estimate the percentage of the total property value represented by the damaged component.</p>
+  <p><strong>For RCV claims:</strong> Damaged portion value = Replacement Cost &times; (Damage % &divide; 100)</p>
+  <p><strong>For ACV claims:</strong> Damaged portion value = ACV &times; (Damage % &divide; 100)</p>
+
+  <h2>Step 3: Diminished Value (Vehicles Only)</h2>
+  <p>The calculator estimates diminished value at 13% of pre-damage ACV for vehicle claims when the diminished value option is selected. This represents the midpoint of the widely-used Georgia 17c formula across typical moderate-damage, mid-mileage scenarios.</p>
+  <p>The 17c formula in full: DV = 10% &times; ACV &times; Damage Multiplier &times; Mileage Multiplier, where:</p>
+  <ul>
+    <li>Damage multiplier: 1.0 (structural/severe), 0.75 (major), 0.50 (moderate), 0.25 (minor/superficial)</li>
+    <li>Mileage multiplier: 1.0 (&lt;20,000 miles), 0.80 (20–40K), 0.60 (40–60K), 0.40 (60–80K), 0.20 (80–100K), 0.00 (&gt;100K)</li>
+  </ul>
+  <p>The calculator's 13% flat estimate is a simplification. For a precise DV estimate, apply the full 17c formula using your vehicle's actual mileage and damage severity, then compare against an independent certified appraisal. Independent appraisals consistently produce higher DV estimates than the 17c formula and are admissible in disputes with insurers.</p>
+
+  <h2>Known Limitations</h2>
+  <ul>
+    <li><strong>Deductibles:</strong> For first-party claims (your own insurance), your deductible reduces the insurer's payment by the deductible amount. The calculator does not apply a deductible offset. Subtract your deductible from the estimate for a first-party claim.</li>
+    <li><strong>Policy limits and sub-limits:</strong> Your policy may have per-item limits (e.g., $1,500 for jewelry) or aggregate limits that cap recovery below the calculated value. Check your declarations page for applicable sublimits.</li>
+    <li><strong>Flood and earthquake exclusions:</strong> Standard homeowners and auto comprehensive policies exclude flood damage. Flood claims must go through NFIP or private flood insurance, which has its own valuation rules. The calculator does not apply these exclusions.</li>
+    <li><strong>RCV holdback:</strong> RCV policies typically pay ACV first and release the withheld depreciation ("holdback") only after the repairs or replacement are completed and documented. The full RCV is not received in a single payment.</li>
+    <li><strong>Consequential and loss-of-use damages:</strong> Third-party negligence claims may include rental car costs, loss-of-use damages, and other consequential losses beyond the property value. The calculator estimates property value only.</li>
+    <li><strong>State total-loss thresholds:</strong> States set varying thresholds for when a vehicle must be declared a total loss (ranging from 75% to 100% of ACV). The calculator does not apply these thresholds.</li>
+  </ul>
+
+  <p>Return to the <a href="/">calculator</a>, or see the <a href="/guides/rcv-vs-acv">RCV vs. ACV guide</a> and <a href="/guides/how-property-damage-claims-work">claims process guide</a> for further context.</p>
 </BaseLayout>
